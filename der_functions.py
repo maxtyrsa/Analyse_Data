@@ -34,3 +34,28 @@ url = base_url + 'sendMessage?' + urlencode(params)
 
 resp = requests.get(url)
 
+
+#Airflow
+#Импорт библиотек
+from airflow import DAG
+from airflow.operators.python.operator import PythonOperator
+from datetime import datetime
+
+#Настройки Dag
+
+default_args = {
+    'owner': 'romank',
+    'start_date': datetime(2024, 2, 03),
+    'depends_on_past': False,
+}
+
+
+dag = Dag("Hello World",
+default_args = default_atgs,
+schedule_interval = '00 12 * * 1'')
+
+
+t1 = PythonOperator(
+task_id='python_hello'
+dag=dag,
+python_callable=hello)
